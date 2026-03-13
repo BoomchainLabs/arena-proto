@@ -46,3 +46,7 @@ export type { IArenaFighter } from "./contracts/ArenaGame.sol/IArenaFighter";
 export { IArenaFighter__factory } from "./factories/contracts/ArenaGame.sol/IArenaFighter__factory";
 export type { ArenaMarketplace } from "./contracts/ArenaMarketplace.sol/ArenaMarketplace";
 export { ArenaMarketplace__factory } from "./factories/contracts/ArenaMarketplace.sol/ArenaMarketplace__factory";
+export type { IERC20Transfer } from "./contracts/ArenaMarketplace.sol/IERC20Transfer";
+export { IERC20Transfer__factory } from "./factories/contracts/ArenaMarketplace.sol/IERC20Transfer__factory";
+export type { IERC721Transfer } from "./contracts/ArenaMarketplace.sol/IERC721Transfer";
+export { IERC721Transfer__factory } from "./factories/contracts/ArenaMarketplace.sol/IERC721Transfer__factory";

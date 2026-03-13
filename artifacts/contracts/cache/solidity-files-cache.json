@@ -827,8 +827,8 @@
       ]
     },
     "/home/runner/workspace/artifacts/contracts/contracts/ArenaMarketplace.sol": {
-      "lastModificationDate": 1773442526388,
-      "contentHash": "7dc87e116ea11f2b2a31606b001f9ef7",
+      "lastModificationDate": 1773443177245,
+      "contentHash": "7f935a673ba176b772050dfbe4b8b318",
       "sourceName": "contracts/ArenaMarketplace.sol",
       "solcConfig": {
         "version": "0.8.28",
@@ -864,8 +864,8 @@
       ],
       "artifacts": [
         "ArenaMarketplace",
-        "IArenaCoin",
-        "IERC721"
+        "IERC20Transfer",
+        "IERC721Transfer"
       ]
     },
     "/home/runner/workspace/artifacts/contracts/contracts/ArenaGame.sol": {
