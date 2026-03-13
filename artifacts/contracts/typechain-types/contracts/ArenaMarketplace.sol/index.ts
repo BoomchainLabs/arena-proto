@@ -3,4 +3,6 @@
 /* eslint-disable */
 export type { ArenaMarketplace } from "./ArenaMarketplace";
 export type { IArenaCoin } from "./IArenaCoin";
+export type { IERC20Transfer } from "./IERC20Transfer";
 export type { IERC721 } from "./IERC721";
+export type { IERC721Transfer } from "./IERC721Transfer";

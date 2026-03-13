@@ -26,14 +26,12 @@ import type {
 export interface ArenaMarketplaceInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "activeListingByToken"
       | "arenaCoin"
       | "buy"
       | "delist"
       | "feeBps"
       | "fighterNFT"
       | "list"
-      | "listingCount"
       | "listings"
       | "owner"
       | "renounceOwnership"
@@ -46,17 +44,11 @@ export interface ArenaMarketplaceInterface extends Interface {
   getEvent(
     nameOrSignatureOrTopic:
       | "Delisted"
-      | "FeeUpdated"
       | "Listed"
       | "OwnershipTransferred"
       | "Sold"
-      | "TreasuryUpdated"
   ): EventFragment;
 
-  encodeFunctionData(
-    functionFragment: "activeListingByToken",
-    values: [BigNumberish]
-  ): string;
   encodeFunctionData(functionFragment: "arenaCoin", values?: undefined): string;
   encodeFunctionData(functionFragment: "buy", values: [BigNumberish]): string;
   encodeFunctionData(
@@ -71,10 +63,6 @@ export interface ArenaMarketplaceInterface extends Interface {
   encodeFunctionData(
     functionFragment: "list",
     values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "listingCount",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "listings",
@@ -99,20 +87,12 @@ export interface ArenaMarketplaceInterface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: "treasury", values?: undefined): string;
 
-  decodeFunctionResult(
-    functionFragment: "activeListingByToken",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "arenaCoin", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "buy", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "delist", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "feeBps", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "fighterNFT", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "list", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "listingCount",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "listings", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
@@ -132,23 +112,10 @@ export interface ArenaMarketplaceInterface extends Interface {
 }
 
 export namespace DelistedEvent {
-  export type InputTuple = [listingId: BigNumberish, tokenId: BigNumberish];
-  export type OutputTuple = [listingId: bigint, tokenId: bigint];
+  export type InputTuple = [tokenId: BigNumberish];
+  export type OutputTuple = [tokenId: bigint];
   export interface OutputObject {
-    listingId: bigint;
     tokenId: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace FeeUpdatedEvent {
-  export type InputTuple = [newFeeBps: BigNumberish];
-  export type OutputTuple = [newFeeBps: bigint];
-  export interface OutputObject {
-    newFeeBps: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -158,21 +125,14 @@ export namespace FeeUpdatedEvent {
 
 export namespace ListedEvent {
   export type InputTuple = [
-    listingId: BigNumberish,
-    seller: AddressLike,
     tokenId: BigNumberish,
+    seller: AddressLike,
     price: BigNumberish
   ];
-  export type OutputTuple = [
-    listingId: bigint,
-    seller: string,
-    tokenId: bigint,
-    price: bigint
-  ];
+  export type OutputTuple = [tokenId: bigint, seller: string, price: bigint];
   export interface OutputObject {
-    listingId: bigint;
-    seller: string;
     tokenId: bigint;
+    seller: string;
     price: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
@@ -196,34 +156,15 @@ export namespace OwnershipTransferredEvent {
 
 export namespace SoldEvent {
   export type InputTuple = [
-    listingId: BigNumberish,
-    buyer: AddressLike,
     tokenId: BigNumberish,
+    buyer: AddressLike,
     price: BigNumberish
   ];
-  export type OutputTuple = [
-    listingId: bigint,
-    buyer: string,
-    tokenId: bigint,
-    price: bigint
-  ];
+  export type OutputTuple = [tokenId: bigint, buyer: string, price: bigint];
   export interface OutputObject {
-    listingId: bigint;
-    buyer: string;
     tokenId: bigint;
+    buyer: string;
     price: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace TreasuryUpdatedEvent {
-  export type InputTuple = [newTreasury: AddressLike];
-  export type OutputTuple = [newTreasury: string];
-  export interface OutputObject {
-    newTreasury: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -274,17 +215,11 @@ export interface ArenaMarketplace extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  activeListingByToken: TypedContractMethod<
-    [arg0: BigNumberish],
-    [bigint],
-    "view"
-  >;
-
   arenaCoin: TypedContractMethod<[], [string], "view">;
 
-  buy: TypedContractMethod<[listingId: BigNumberish], [void], "nonpayable">;
+  buy: TypedContractMethod<[tokenId: BigNumberish], [void], "nonpayable">;
 
-  delist: TypedContractMethod<[listingId: BigNumberish], [void], "nonpayable">;
+  delist: TypedContractMethod<[tokenId: BigNumberish], [void], "nonpayable">;
 
   feeBps: TypedContractMethod<[], [bigint], "view">;
 
@@ -292,18 +227,15 @@ export interface ArenaMarketplace extends BaseContract {
 
   list: TypedContractMethod<
     [tokenId: BigNumberish, price: BigNumberish],
-    [bigint],
+    [void],
     "nonpayable"
   >;
-
-  listingCount: TypedContractMethod<[], [bigint], "view">;
 
   listings: TypedContractMethod<
     [arg0: BigNumberish],
     [
-      [string, bigint, bigint, boolean] & {
+      [string, bigint, boolean] & {
         seller: string;
-        tokenId: bigint;
         price: bigint;
         active: boolean;
       }
@@ -315,13 +247,9 @@ export interface ArenaMarketplace extends BaseContract {
 
   renounceOwnership: TypedContractMethod<[], [void], "nonpayable">;
 
-  setFeeBps: TypedContractMethod<[_feeBps: BigNumberish], [void], "nonpayable">;
+  setFeeBps: TypedContractMethod<[bps: BigNumberish], [void], "nonpayable">;
 
-  setTreasury: TypedContractMethod<
-    [_treasury: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+  setTreasury: TypedContractMethod<[t: AddressLike], [void], "nonpayable">;
 
   transferOwnership: TypedContractMethod<
     [newOwner: AddressLike],
@@ -336,17 +264,14 @@ export interface ArenaMarketplace extends BaseContract {
   ): T;
 
   getFunction(
-    nameOrSignature: "activeListingByToken"
-  ): TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
-  getFunction(
     nameOrSignature: "arenaCoin"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "buy"
-  ): TypedContractMethod<[listingId: BigNumberish], [void], "nonpayable">;
+  ): TypedContractMethod<[tokenId: BigNumberish], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "delist"
-  ): TypedContractMethod<[listingId: BigNumberish], [void], "nonpayable">;
+  ): TypedContractMethod<[tokenId: BigNumberish], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "feeBps"
   ): TypedContractMethod<[], [bigint], "view">;
@@ -357,20 +282,16 @@ export interface ArenaMarketplace extends BaseContract {
     nameOrSignature: "list"
   ): TypedContractMethod<
     [tokenId: BigNumberish, price: BigNumberish],
-    [bigint],
+    [void],
     "nonpayable"
   >;
-  getFunction(
-    nameOrSignature: "listingCount"
-  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "listings"
   ): TypedContractMethod<
     [arg0: BigNumberish],
     [
-      [string, bigint, bigint, boolean] & {
+      [string, bigint, boolean] & {
         seller: string;
-        tokenId: bigint;
         price: bigint;
         active: boolean;
       }
@@ -385,10 +306,10 @@ export interface ArenaMarketplace extends BaseContract {
   ): TypedContractMethod<[], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "setFeeBps"
-  ): TypedContractMethod<[_feeBps: BigNumberish], [void], "nonpayable">;
+  ): TypedContractMethod<[bps: BigNumberish], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "setTreasury"
-  ): TypedContractMethod<[_treasury: AddressLike], [void], "nonpayable">;
+  ): TypedContractMethod<[t: AddressLike], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "transferOwnership"
   ): TypedContractMethod<[newOwner: AddressLike], [void], "nonpayable">;
@@ -402,13 +323,6 @@ export interface ArenaMarketplace extends BaseContract {
     DelistedEvent.InputTuple,
     DelistedEvent.OutputTuple,
     DelistedEvent.OutputObject
-  >;
-  getEvent(
-    key: "FeeUpdated"
-  ): TypedContractEvent<
-    FeeUpdatedEvent.InputTuple,
-    FeeUpdatedEvent.OutputTuple,
-    FeeUpdatedEvent.OutputObject
   >;
   getEvent(
     key: "Listed"
@@ -431,16 +345,9 @@ export interface ArenaMarketplace extends BaseContract {
     SoldEvent.OutputTuple,
     SoldEvent.OutputObject
   >;
-  getEvent(
-    key: "TreasuryUpdated"
-  ): TypedContractEvent<
-    TreasuryUpdatedEvent.InputTuple,
-    TreasuryUpdatedEvent.OutputTuple,
-    TreasuryUpdatedEvent.OutputObject
-  >;
 
   filters: {
-    "Delisted(uint256,uint256)": TypedContractEvent<
+    "Delisted(uint256)": TypedContractEvent<
       DelistedEvent.InputTuple,
       DelistedEvent.OutputTuple,
       DelistedEvent.OutputObject
@@ -451,18 +358,7 @@ export interface ArenaMarketplace extends BaseContract {
       DelistedEvent.OutputObject
     >;
 
-    "FeeUpdated(uint256)": TypedContractEvent<
-      FeeUpdatedEvent.InputTuple,
-      FeeUpdatedEvent.OutputTuple,
-      FeeUpdatedEvent.OutputObject
-    >;
-    FeeUpdated: TypedContractEvent<
-      FeeUpdatedEvent.InputTuple,
-      FeeUpdatedEvent.OutputTuple,
-      FeeUpdatedEvent.OutputObject
-    >;
-
-    "Listed(uint256,address,uint256,uint256)": TypedContractEvent<
+    "Listed(uint256,address,uint256)": TypedContractEvent<
       ListedEvent.InputTuple,
       ListedEvent.OutputTuple,
       ListedEvent.OutputObject
@@ -484,7 +380,7 @@ export interface ArenaMarketplace extends BaseContract {
       OwnershipTransferredEvent.OutputObject
     >;
 
-    "Sold(uint256,address,uint256,uint256)": TypedContractEvent<
+    "Sold(uint256,address,uint256)": TypedContractEvent<
       SoldEvent.InputTuple,
       SoldEvent.OutputTuple,
       SoldEvent.OutputObject
@@ -493,17 +389,6 @@ export interface ArenaMarketplace extends BaseContract {
       SoldEvent.InputTuple,
       SoldEvent.OutputTuple,
       SoldEvent.OutputObject
-    >;
-
-    "TreasuryUpdated(address)": TypedContractEvent<
-      TreasuryUpdatedEvent.InputTuple,
-      TreasuryUpdatedEvent.OutputTuple,
-      TreasuryUpdatedEvent.OutputObject
-    >;
-    TreasuryUpdated: TypedContractEvent<
-      TreasuryUpdatedEvent.InputTuple,
-      TreasuryUpdatedEvent.OutputTuple,
-      TreasuryUpdatedEvent.OutputObject
     >;
   };
 }
