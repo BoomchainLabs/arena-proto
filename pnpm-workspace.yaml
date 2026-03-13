@@ -29,6 +29,10 @@ catalog:
   vite: ^7.3.0
   zod: ^3.25.76
 
+ignoredBuiltDependencies:
+  - keccak
+  - secp256k1
+
 minimumReleaseAge: 1440
 
 onlyBuiltDependencies:
