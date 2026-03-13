@@ -1,0 +1,105 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IArenaFighter",
+  "sourceName": "contracts/ArenaGame.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "ownerOf",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "recordLoss",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "recordWin",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "stats",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "strength",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint8",
+          "name": "speed",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint8",
+          "name": "intelligence",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint8",
+          "name": "rarity",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint32",
+          "name": "wins",
+          "type": "uint32"
+        },
+        {
+          "internalType": "uint32",
+          "name": "losses",
+          "type": "uint32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "mintedAt",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
