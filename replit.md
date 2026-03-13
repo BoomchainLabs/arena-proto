@@ -2,7 +2,7 @@
 
 ## Overview
 
-pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+pnpm workspace monorepo using TypeScript. Full-stack GameFi ecosystem — Arena Protocol — built on top of the Base blockchain. Each package manages its own dependencies.
 
 ## Stack
 
