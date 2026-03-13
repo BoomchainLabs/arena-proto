@@ -1,16 +1,29 @@
-import { createConfig, http } from 'wagmi'
-import { base } from 'wagmi/chains'
+import { createConfig, http } from "wagmi";
+import { base } from "wagmi/chains";
+import { injected, walletConnect } from "wagmi/connectors";
 
 export const config = createConfig({
   chains: [base],
+  connectors: [
+    injected(),
+    walletConnect({
+      projectId: "arena-protocol-base",
+      metadata: {
+        name: "Arena Protocol",
+        description: "The most competitive on-chain battle system on Base Mainnet",
+        url: typeof window !== "undefined" ? window.location.origin : "https://arenaprotocol.xyz",
+        icons: [],
+      },
+      showQrModal: false,
+    }),
+  ],
   transports: {
-    [base.id]: http(),
+    [base.id]: http("https://mainnet.base.org"),
   },
-})
+});
 
-export const useMockAccount = () => {
-  return {
-    address: '0x1234567890abcdef1234567890abcdef12345678' as const,
-    isConnected: true,
+declare module "wagmi" {
+  interface Register {
+    config: typeof config;
   }
 }
