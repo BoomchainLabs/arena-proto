@@ -4,3 +4,4 @@
 export * as arenaFighterSol from "./ArenaFighter.sol";
 export * as arenaGameSol from "./ArenaGame.sol";
 export * as arenaMarketplaceSol from "./ArenaMarketplace.sol";
+export { ArenaCoin__factory } from "./ArenaCoin__factory";
