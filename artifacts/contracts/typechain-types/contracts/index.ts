@@ -7,3 +7,4 @@ import type * as arenaGameSol from "./ArenaGame.sol";
 export type { arenaGameSol };
 import type * as arenaMarketplaceSol from "./ArenaMarketplace.sol";
 export type { arenaMarketplaceSol };
+export type { ArenaCoin } from "./ArenaCoin";

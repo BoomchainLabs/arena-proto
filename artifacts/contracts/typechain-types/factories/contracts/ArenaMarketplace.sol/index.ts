@@ -2,7 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export { ArenaMarketplace__factory } from "./ArenaMarketplace__factory";
-export { IArenaCoin__factory } from "./IArenaCoin__factory";
 export { IERC20Transfer__factory } from "./IERC20Transfer__factory";
-export { IERC721__factory } from "./IERC721__factory";
 export { IERC721Transfer__factory } from "./IERC721Transfer__factory";
